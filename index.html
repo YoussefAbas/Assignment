@@ -36,5 +36,48 @@
         </div>
         <img src="images/food.jpg" alt="bowl with food">
     </div>
+    <script>
+        function find_city() {
+            city = document.getElementById("city").value;
+            console.log(city);
+            overlay = document.getElementById("overlay");
+            console.log(overlay);
+            overlay.style.display = "grid";
+            overlay.classlist.add("animate.overlay");
+            fetch('${window.origin}/city',{
+                method: "POST",
+                credentials : "include",
+                body:JSON.stringify(cityy),
+                cache:"no-cache",
+                headers:new headers({
+                    "content-type": "application/json",
+                })
+            
+
+            })
+            .then (respond => respond.json())
+            .then(data => {
+                console.log('Success:',data);
+                setTimeout(() => {
+                    overlay.classlist.remove('animate-ooverlay')
+                }, 
+            )
+            setTimeout(() =>{overlay.style="opacity:0;";},2000 
+            );
+            let child=document.createElement("h2");
+            child.appendChild(document.createTextNode("Received successfully"))
+            child.id="rem";
+            setTimeout(() => {document.getElementById("top").appendChild(child);
+        setTimeout(() => {child.remove();},2000);
+        },2000
+            );
+    })
+            .catch((error)=>{
+                console.error('Error:',error);
+            });
+            
+        }
+
+        </script>
 </body>
 </html>
